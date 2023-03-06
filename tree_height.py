@@ -27,8 +27,8 @@ def compute_height(n, parents):
  
     mHight =  0 
     for r in root:
-        treeheight = fDepth(r, 0)
-        mHight = max(mHight, treeheight) 
+        tHeight = fDepth(r, 0)
+        mHight = max(mHight, tHeight) 
 
     return mHight + 1
 
