@@ -52,7 +52,7 @@ def main():
             print("Error. Try again")
             return
     
-        print(compute_height(n, parents))
+    print(compute_height(n, parents))
 
 sys.setrecursionlimit(10**7)
 threading.stack_size(2**27)
