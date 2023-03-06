@@ -2,6 +2,7 @@
 
 import sys
 import threading
+import numpy
 
 
 def compute_height(n, parents):
@@ -14,23 +15,22 @@ def compute_height(n, parents):
         else: 
             children[parent].append(i)
  
-            
-    def find_max_depth(node, d):
+    def fDepth(node, fd):
         if not children[node]:
-            return d 
+            return fd 
         else:
-            max_D = 0 
+            mDepth = 0 
             for child in children[node]:
-                child_D = find_max_depth(child, d+1) 
-                max_D = max(max_D, child_D)
-            return max_D 
+                cDepth = fDepth(child, fd+1) 
+                mDepth = max(mDepth, cDepth)
+            return mDepth 
  
-    max_H =  0 
+    mHight =  0 
     for r in root:
-        treeheight = find_max_depth(r, 0)
-        max_H = max(max_H, treeheight) 
+        treeheight = fDepth(r, 0)
+        mHight = max(mHight, treeheight) 
 
-    return max_H  + 1
+    return mHight + 1
 
 def main():
     answer = input("Enter F (for file) or I (for input): ")
