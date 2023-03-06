@@ -5,27 +5,35 @@ import threading
 
 
 def compute_height(n, parents):
-    child = {i:[] for i in range(n)}
-    root = None
-    for i in range(n):
-        parents = parents[i]
-        if parents==-1:
-            root=i
-        else:
-            child[parents].append(i)
+    children = {i: [] for i in range(n)}
+    root = [] 
 
-    def max_height(mh):
-        height = 1
-        if not child[mh]:
-            return height
+    for i, parent in enumerate(parents):
+        if parent == -1:
+            root.append(i)
+        else: 
+            children[parent].append(i)
+ 
+            
+    def find_max_depth(node, d):
+        if not children[node]:
+            return d 
         else:
-            for child in child[mh]:
-                height = max(height, max_height(child))
-            return height + 1
-    return max_height(root)
+            max_D = 0 
+            for child in children[node]:
+                child_D = find_max_depth(child, d+1) 
+                max_D = max(max_D, child_D)
+            return max_D 
+ 
+    max_H =  0 
+    for r in root:
+        treeheight = find_max_depth(r, 0)
+        max_H = max(max_H, treeheight) 
+
+    return max_H  + 1
 
 def main():
-    answer = input("Enter F (for file) or I (for input)")
+    answer = input("Enter F (for file) or I (for input): ")
     if "I" in answer:
         n = int(input())
         parents = list(map(int,input().split()))
@@ -40,12 +48,11 @@ def main():
             except Exception as error:
                 print("Error:", str(error))
                 return
-    else:
-        print("Error. Try again")
-        return
+        else:
+            print("Error. Try again")
+            return
     
-    print(compute_height(n, parents))
-
+        print(compute_height(n, parents))
 
 sys.setrecursionlimit(10**7)
 threading.stack_size(2**27)
